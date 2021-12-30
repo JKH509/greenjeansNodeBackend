@@ -1,0 +1,38 @@
+{
+  "name": "greenjeansserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "client": "cd.. greenjeansclient && npm start",
+    "start": "nodemon app.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.1",
+    "nodemon": "^2.0.15",
+    "source-map-loader": "^3.0.0"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "1500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 5001
+    }
+  }
+}
