@@ -16,12 +16,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 const customerRouter = require('./src/routes/customerRoutes')();
 const employeeRouter = require('./src/routes/employeeRoutes')();
 const serviceRouter = require('./src/routes/serviceRoutes')();
-const wiki = require('./src/routes/wiki')();
+const wikis = require('./src/routes/wiki')();
 
 app.use('/api', customerRouter);
 app.use('/api', employeeRouter);
 app.use('/api', serviceRouter);
-app.use('/api', wiki);
+app.use('/api', wikis);
 
 
 app.use(function(req, res, next) {
