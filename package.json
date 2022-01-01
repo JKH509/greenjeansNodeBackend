@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "client": "cd.. greenjeansclient && npm start",
-    "start": "nodemon app.js",
+    "client": "cd.. && cd greenjeansclient && npm start",
+    "server": "nodemon app.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
   "keywords": [],

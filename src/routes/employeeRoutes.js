@@ -5,10 +5,11 @@ const employeeRouter = express.Router();
 
 function router() {
 
-    const {  getAll, getEmployeeById } = employeeController();
+    const {  getAll, getEmployeeById, addEmployee } = employeeController();
     
     employeeRouter.route('/employee/list').get(getAll);
     employeeRouter.route('/employee/:id').get(getEmployeeById);
+    employeeRouter.route('/employee/add-employee').post(addEmployee);
    
  
     

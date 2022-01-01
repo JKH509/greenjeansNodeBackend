@@ -85,8 +85,8 @@ const customerController = (req, res) => {
     const bZip = req.body.customerBillingZip;
     const payType = req.body.customerPaymentType;
     db.query(
-      "INSERT INTO `Customer_Data`(`Customer_ID`, `first_name`, `last_name`, `email`, `address`, `city`, `state`, `zip`, `customer_started`, `customer_stopped`, `complaints`, `services`, `turf_sqft`, `weekly_expense`, `seasonal_expense`, `one_time_service_expense`, `distance_from_shop`, `notes`, `customer_priority`, `billing_address`, `billing_city`, `billing_state`, `billing_zip`, `payment_type`) VALUES VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-       [firstName,lastName,address,city,state,zip,start,end,complaints,services,turfSqft,weeklyExp,seasonalExp,otsExp,distance,notes,priority,bAddress,bCity,bState,bZip,payType],
+      "INSERT INTO `Customer_Data`(`first_name`, `last_name`, `email`, `address`, `city`, `state`, `zip`, `customer_started`, `customer_stopped`, `complaints`, `services`, `turf_sqft`, `weekly_expense`, `seasonal_expense`, `one_time_service_expense`, `distance_from_shop`, `notes`, `customer_priority`, `billing_address`, `billing_city`, `billing_state`, `billing_zip`, `payment_type`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       [firstName,lastName,email,address,city,state,zip,start,end,complaints,services,turfSqft,weeklyExp,seasonalExp,otsExp,distance,notes,priority,bAddress,bCity,bState,bZip,payType],
       (err, result) => {
         if (err) {
           console.log(err);
