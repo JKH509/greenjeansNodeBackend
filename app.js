@@ -1,49 +1,54 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 3001;
-const db = require('./dbConfig')
-// const mysql = require("mysql2");
-// const db = require('./dbConfig');
+const PORT = process.env.PORT || 5001;
+// const db = require("./config/dbConfig.js");
+// const db = require('./models')
+
+const multer = require('multer')
+
 
 app.use(cors())
+
+// middleware
+// var corOptions = {
+//   origin: "http://localhost:3000"
+// }
+// app.use(cors(corOptions))
 app.use(express.json())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }))
 
 
+// routers
+const customerRouter = require('./src/routes/customerRoutes.js');
+const employeeRouter = require('./src/routes/employeeRoutes.js');
 
-const customerRouter = require('./src/routes/customerRoutes')();
-const employeeRouter = require('./src/routes/employeeRoutes')();
-const serviceRouter = require('./src/routes/serviceRoutes')();
+const serviceRouter = require('./src/routes/serviceRoutes.js');
+
+const profileRouter = require('./src/routes/profileRoutes')();
+const loginRouter = require('./src/routes/loginRoutes')();
 const wikis = require('./src/routes/wiki')();
 
 app.use('/api', customerRouter);
 app.use('/api', employeeRouter);
 app.use('/api', serviceRouter);
+app.use('/api', profileRouter);
+app.use('/api', loginRouter);
 app.use('/api', wikis);
 
 
-// app.post('/api/create', (req, res) => {
-//   const value1 = req.body.entryOne;
-//   const value2 = req.body.entryTwo;
-//   db.query(
-//     'INSERT INTO tests (`id`, `value1`, `value2`) VALUES(?,?,?)', 
-//     [value1, value2],
-//     (err, result) =>{
-//       if (err){
-//         console.log(err)
-//       } else{
-//         res.send("Values Inserted")
-//       }
-//     });
-// };
+//static Images Folder
+app.use('/upload/images', express.static('./upload/images'))
+app.use('/upload/customer_images', express.static('./upload/customer_images'))
+app.use('/upload/employee_images', express.static('./upload/employee_images'))
 
-// app.post('/api/create', (req, res) => {
-  
- 
-// })
+
+// app.use(express.static(__dirname + '/src/profiles'));
+// app.use('/uploads', express.static('uploads'));
+// app.use('/upload/images', express.static('upload/images'))
+
+
+
 
 
 app.use(function(req, res, next) {
@@ -54,7 +59,10 @@ app.use(function(req, res, next) {
 });
 
 
+// db.sequelize.sync().then(() => { 
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
-});
+})
+
+// });

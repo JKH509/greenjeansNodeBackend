@@ -1,68 +1,112 @@
-const db = require('../../dbConfig');
+const db = require('../models')
+// Image upload
+const multer = require('multer')
+const path = require('path')
 
-const employeeController = (req, res) => {
+// Create main model 
+const Employee = db.Employee_Data
 
+// Get All Employees
+const getAllEmployees = async (req, res) => {
+  let employees = await Employee.findAll({})
+  res.status(200).send(employees)
+}
 
-const getAll = (req, res) => {
-  const sqlGetservices = "SELECT * FROM Employee_Data";
-  db.query(sqlGetservices, (err, result) => {
-    res.send(result);
-  });
+// Get Employees By ID
+const getEmployeeById = async (req, res) => {
+  let id = req.params.id
+  let employee = await Employee.findOne({
+    where: {
+      id: id
+    }
+  })
+  res.status(200).send(employee)
+}
+
+// Create
+const addEmployee = async (req, res) => {
+  try {
+    let info = {
+      first_name:req.body.employeeFirstName,
+      last_name: req.body.employeeLastName,
+      email: req.body.employeeEmail,
+      phone_number:  req.body.employeePhone,
+      mobile_phone:  req.body.employeeMobile,
+      street_address:  req.body.employeeAddress,
+      address_two: req.body.employeeAddressTwo,
+      city: req.body.employeeCity,
+      state: req.body.employeeState,
+      postal_code: req.body.employeeZip,
+      country: req.body.employeeCountry,
+      distance_fo: req.body.employeeDistance,
+      job_title: req.body.employeeJobTitle,
+      starting_wage: req.body.employeeStartingWage,
+      ending_wage: req.body.employeeLastWage,
+      gender: req.body.employeeGender,
+      ethnicity: req.body.employeeEthnicity,
+      license_status: req.body.employeeDriversLicenseStatus,
+      med_conditions: req.body.employeeMedicalConditions,
+      notes: req.body.employeeCautions,
+      employee_image: req.file.path,
+      preferred_payment_method: req.body.employeePayPreference,
+    }
+    const employee = await Employee.create(info)
+    res.status(200).send(employee)
+    console.log(employee)
+  } catch {
+    
+  }
 };
 
-async function getEmployeeById(req, res) {
-  try {
-    let employeeId = req.params.id;
-    let sql = "SELECT * FROM `Employee_Data` WHERE `id`= ?";
-    db.query(sql, [employeeId], function (err, result) {
-      if (err) throw err;
-      res.status(200).json(result);
-    });
-  } catch (error) {
-    res.status(404).json(error);
+// UPDATE Employee By ID
+const updateEmployee = async (req, res) => {
+  let id = req.params.id;
+  const employee = await Employee.update(req.body, {
+    where: {
+      id: id,
+    },
+  });
+  res.status(200).send(employee);
+};
+
+// DELETE Employee By ID
+const deleteEmployee = async (req, res) => {
+  let id = req.params.id
+  await Employee.destroy({where: {id: id}})
+  res.status(200).send('Employee is deleted')
+}
+
+// Photo uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads/employee_images')
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname))
   }
-}
-
-async function addEmployee(req, res) {
-  const firstName = req.body.employeeFirstName;
-  const lastName = req.body.employeeLastName;
-  const gender = req.body.employeeGender;
-  const email = req.body.employeeEmail;
-  const jobtitle = req.body.employeeJobTitle;
-  const startingwage = req.body.employeeStartingWage;
-  const lastwage = req.body.employeeLastWage;
-  const medical = req.body.employeeMedicalConditions;
-  const image = req.body.employeeImage;
-  const license = req.body.employeeDriversLicenseStatus;
-  const address = req.body.employeeAddress;
-  const city = req.body.employeeCity;
-  const state = req.body.employeeState;
-  const zip = req.body.employeeZip;
-  const start = req.body.employeeStart;
-  const end = req.body.employeeEnd;
-  const cautions = req.body.employeeCautions;
-  const distance = req.body.employeeDistance;
- 
-  db.query(
-    "INSERT INTO `Employee_Data`(`first_name`, `last_name`, `email`, `gender`, `job_title`, `start_date`, `starting_wage`, `last_wage`, `end_date`, `distance_from_work`, `cautions`, `medical_conditions`, `employee_image`, `address`, `state`, `city`, `zip`, `license_status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-     [firstName,lastName,email,gender,jobtitle,start,startingwage,lastwage,end,distance,cautions,medical,image,address,state,city,zip,license],
-    (err, result) => {
-      if (err) {
-        res.status(404)
-      } else {
-        res.status(200).send(result);
+})
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: '1000000' },
+  fileFilter: (req, file, cb) => {
+      const fileTypes = /jpeg|jpg|png|gif/
+      const mimeType = fileTypes.test(file.mimetype)  
+      const extname = fileTypes.test(path.extname(file.originalname))
+      if(mimeType && extname) {
+          return cb(null, true)
       }
-    }
-  );
-}
+      cb('Give proper files formate to upload')
+  }
+}).single('employee_image')
 
 
 
- return {
-  getAll,
+
+module.exports = {
+  addEmployee, 
+  upload,
+  getAllEmployees,
   getEmployeeById,
-  addEmployee,
- };
+  updateEmployee,
+  deleteEmployee,
 }
-
-module.exports = employeeController;

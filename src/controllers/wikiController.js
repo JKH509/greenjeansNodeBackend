@@ -1,4 +1,5 @@
-const db = require('../../dbConfig');
+const db = require("../../config/dbConfig.js");
+
 const sql = require('mysql2');
 
 const wikiController = (req, res) => {

@@ -1,20 +1,17 @@
 const express = require('express');
 
-const employeeController = require('../controllers/employeeController');
-const employeeRouter = express.Router();
+const employeeController = require('../controllers/employeeController.js');
+const router = express.Router();
 
-function router() {
+// router.post('/employee/add-service', employeeController.addEmployee)
+router.post('/employee/add-employee', employeeController.upload, employeeController.addEmployee)
+router.get('/employees/list', employeeController.getAllEmployees)
+// By ID's
+router.get('/employee/:id', employeeController.getEmployeeById)
+router.put('/employee/edit/:id', employeeController.updateEmployee)
+router.delete('/employee/delete/:id', employeeController.deleteEmployee)
 
-    const {  getAll, getEmployeeById, addEmployee } = employeeController();
-    
-    employeeRouter.route('/employee/list').get(getAll);
-    employeeRouter.route('/employee/:id').get(getEmployeeById);
-    employeeRouter.route('/employee/add-employee').post(addEmployee);
-   
- 
-    
-    return employeeRouter;
-};
-
+// Not yet used
+// router.get('/employee/pulished', employeeController.getPublishedEmployee)
 
 module.exports = router;
