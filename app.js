@@ -38,12 +38,22 @@ app.use('/api', wikis);
 
 
 //static Images Folder
-app.use('/upload/images', express.static('./upload/images'))
-app.use('/upload/customer_images', express.static('./upload/customer_images'))
-app.use('/upload/employee_images', express.static('./upload/employee_images'))
+// app.use('/upload/images', express.static('./upload/images'))
 
 
+
+// app.use('/uploads', express.static('./uploads'))
+app.use('/uploads/services', express.static('./uploads/services'))
+app.use('/uploads/customer_images/property_images', express.static('./uploads/customer_images/property_images'))
+app.use('/uploads/employee_images', express.static('./uploads/employee_images'))
+// app.use('/uploads', express.static('/uploads'))
+// /uploads/customer_images/property_images
+// app.use('/upload/customer_images', express.static('./upload/customer_images'))
+// app.use('/upload/employee_images', express.static('./upload/employee_images'))
+
+app.use(express.static(__dirname + '/uploads/customer_images/property_images'));
 // app.use(express.static(__dirname + '/src/profiles'));
+// app.use(express.static(__dirname + './uploads/employee_images'));
 // app.use('/uploads', express.static('uploads'));
 // app.use('/upload/images', express.static('upload/images'))
 

@@ -10,19 +10,25 @@ const Service = db.Service_Data
 const addService = async (req, res) => {
   try {
     let info = {
-      ServiceType: req.body.newServiceName,
-      ServiceDescription: req.body.newServiceDescription,
-      ServicePrice: req.body.newServicePrice,
-      ServiceWarranty: req.body.newServiceWarranty,
-      WarrantyDescription: req.body.newServiceWarrantyDescription,
-      ServiceSeason: req.body.newServiceSeasonSpringCheckBox,
-      ServiceImage: req.file.path
+      service_type: req.body.service_type,
+      service_description: req.body.service_description,
+      service_price: req.body.service_price,
+      service_warranty: req.body.service_warranty,
+      warranty_description: req.body.warranty_description,
+      service_season_spring: req.body.service_season_spring,
+      service_season_summer: req.body.service_season_summer,
+      service_season_fall: req.body.service_season_fall,
+      service_season_winter: req.body.service_season_winter,
+      service_image: req.file.path
     }
+    // files is for more than 1 image
+    // service_image: req.files.path
     const service = await Service.create(info)
     res.status(200).send(service)
     console.log(service)
-  } catch {
-    
+  } 
+  catch (e) {
+    console.log(e);
   }
 };
 
@@ -46,10 +52,10 @@ const getAllServices = async (req, res) => {
 
 // Get Services By ID
 const getServiceById = async (req, res) => {
-  let id = req.params.id
+  let id = req.params.service_id
   let service = await Service.findOne({
     where: {
-      id: id
+      service_id: id
     }
   })
   res.status(200).send(service)
@@ -57,10 +63,10 @@ const getServiceById = async (req, res) => {
 
 // UPDATE Service By ID
 const updateService = async (req, res) => {
-  let id = req.params.id;
+  let id = req.params.service_id;
   const service = await Service.update(req.body, {
     where: {
-      id: id,
+      service_id: id,
     },
   });
   res.status(200).send(service);
@@ -68,20 +74,23 @@ const updateService = async (req, res) => {
 
 // DELETE Service By ID
 const deleteService = async (req, res) => {
-  let id = req.params.id
-  await Service.destroy({where: {id: id}})
+  let id = req.params.service_id
+  await Service.destroy({where: {service_id: id}})
   res.status(200).send('Service is deleted')
 }
 
 // Photo uploads
+// where you are going to store the image
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'uploads/images')
+      cb(null, './uploads/services')
   },
+  // What you will call the image
   filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname))
   }
 })
+
 const upload = multer({
   storage: storage,
   limits: { fileSize: '1000000' },
@@ -94,7 +103,7 @@ const upload = multer({
       }
       cb('Give proper files formate to upload')
   }
-}).single('ServiceImage')
+}).single('service_image')
 
 // app.post('/profile-upload-multiple', upload.array('profile-files', 12), function (req, res, next) {
 //   // req.files is array of `profile-files` files

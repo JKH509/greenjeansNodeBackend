@@ -2,31 +2,49 @@ module.exports = (sequelize, DataTypes) => {
 
   // Services_Data
   const Service = sequelize.define("Service_Data", {
-    ServiceType: {
+    service_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      initialAutoIncrement: 1,
+  },
+    service_type: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    ServiceDescription: {
+    service_description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    ServicePrice: {
+    service_price: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    ServiceWarranty: {
+    service_warranty: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    WarrantyDescription: {
+    warranty_description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    ServiceSeason: {
+    service_season_spring: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    ServiceImage: {
+    service_season_summer: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    service_season_fall: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    service_season_winter: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    service_image: {
       type: DataTypes.STRING,
       allowNull: true
     },

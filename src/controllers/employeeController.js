@@ -14,19 +14,28 @@ const getAllEmployees = async (req, res) => {
 
 // Get Employees By ID
 const getEmployeeById = async (req, res) => {
-  let id = req.params.id
+  try {
+    let employee_id = req.params.employee_id
   let employee = await Employee.findOne({
     where: {
-      id: id
+      employee_id: employee_id
     }
   })
   res.status(200).send(employee)
+  } catch {
+    
+  }
 }
+
+
+
+
 
 // Create
 const addEmployee = async (req, res) => {
   try {
     let info = {
+      uuid: req.body.uuid,
       first_name:req.body.employeeFirstName,
       last_name: req.body.employeeLastName,
       email: req.body.employeeEmail,
@@ -60,10 +69,10 @@ const addEmployee = async (req, res) => {
 
 // UPDATE Employee By ID
 const updateEmployee = async (req, res) => {
-  let id = req.params.id;
+  let employee_id = req.params.employee_id;
   const employee = await Employee.update(req.body, {
     where: {
-      id: id,
+      employee_id: employee_id,
     },
   });
   res.status(200).send(employee);
@@ -71,15 +80,15 @@ const updateEmployee = async (req, res) => {
 
 // DELETE Employee By ID
 const deleteEmployee = async (req, res) => {
-  let id = req.params.id
-  await Employee.destroy({where: {id: id}})
+  let employee_id = req.params.employee_id
+  await Employee.destroy({where: {employee_id: employee_id}})
   res.status(200).send('Employee is deleted')
 }
 
 // Photo uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'uploads/employee_images')
+      cb(null, './uploads/employee_images')
   },
   filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname))

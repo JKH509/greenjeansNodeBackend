@@ -6,61 +6,70 @@ const path = require('path')
 const Customer = db.Customer_Data
 
 
-// Get All Services
+// Get All Customers
 const getAllCustomers = async (req, res) => {
   let customers = await Customer.findAll({})
   res.status(200).send(customers)
 }
+
+
   // Create
 const addCustomer = async (req, res) => {
   try {
     let info = {
-      first_name: req.body.customerFirstName,
-      last_name: req.body.customerLastName,
-      email: req.body.customerEmail,
-      phone_number: req.body.customerPhone,
-      mobile_phone: req.body.customerMobile,
-      preferred_priority: req.body.customerPriority,
-      street_address: req.body.customerAddress,
-      address_two: req.body.customerAddressTwo,
-      city: req.body.customerCity,
-      state: req.body.customerState,
-      postal_code: req.body.customerZip,
-      country: req.body.customerCountry,
-      street_billing_address: req.body.customerBillingAddress,
-      street_billing_address_two: req.body.customerBillingAddressTwo,
-      billing_acity: req.body.customerBillingCity,
-      billing_state: req.body.customerBillingState,
-      billing_postal_code: req.body.customerBillingZip,
-      distance_fo: req.body.customerDistance,
-      notes: req.body.customerNotes,
+      uuid: req.body.uuid,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email,
+      phone_number: req.body.phone_number,
+      mobile_phone: req.body.mobile_phone,
+      preferred_priority: req.body.preferred_priority,
+      street_address: req.body.street_address,
+      address_two: req.body.address_two,
+      city: req.body.city,
+      state: req.body.state,
+      postal_code: req.body.postal_code,
+      country: req.body.country,
+      street_billing_address: req.body.street_billing_address,
+      street_billing_address_two: req.body.street_billing_address_two,
+      billing_city: req.body.billing_city,
+      billing_state: req.body.billing_state,
+      billing_postal_code: req.body.billing_postal_code,
+      distance_fo: req.body.distance_fo,
+      notes: req.body.notes,
       property_image: req.file.path,
-      preferred_payment_method: req.body.customerPaymentType
+      preferred_payment_method: req.body.preferred_payment_method
     }
     const customer = await Customer.create(info)
     res.status(200).send(customer)
+    console.log(customer)
   } catch {
     
   }
 };
 
-// Get Services By ID
+// Get Customers By ID
 const getCustomerById = async (req, res) => {
-  let id = req.params.id
+  try {
+    let customer_id = req.params.customer_id;
   let customer = await Customer.findOne({
     where: {
-      id: id
+      customer_id: customer_id
     }
   })
   res.status(200).send(customer)
+  }
+  catch {
+
+  }
 }
 
 // UPDATE Customer By ID
 const updateCustomer = async (req, res) => {
-  let id = req.params.id;
+  let id = req.params.customer_id;
   const customer = await Customer.update(req.body, {
     where: {
-      id: id,
+      customer_id: id,
     },
   });
   res.status(200).send(customer);
@@ -68,15 +77,15 @@ const updateCustomer = async (req, res) => {
 
 // DELETE Customer By ID
 const deleteCustomer = async (req, res) => {
-  let id = req.params.id
-  await Customer.destroy({where: {id: id}})
+  let id = req.params.customer_id
+  await Customer.destroy({where: {customer_id: id}})
   res.status(200).send('Customer is deleted')
 }
 
 // Photo uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'uploads/customer_images')
+      cb(null, './uploads/customer_images/property_images')
   },
   filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname))
@@ -106,5 +115,5 @@ module.exports = {
   addCustomer,
   updateCustomer,
   deleteCustomer
-  // getPublishedService
+  // getPublishedCustomer
 }
