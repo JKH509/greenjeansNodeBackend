@@ -8,7 +8,7 @@ router.post('/service/add-service', serviceController.upload, serviceController.
 router.get('/services/list', serviceController.getAllServices)
 // By ID's
 router.get('/service/:service_id', serviceController.getServiceById)
-router.put('/service/edit/:service_id', serviceController.updateService)
+router.put('/service/:service_id', serviceController.updateService)
 router.delete('/service/delete/:service_id', serviceController.deleteService)
 // Not yet used
 // router.get('/service/pulished', serviceController.getPublishedService)

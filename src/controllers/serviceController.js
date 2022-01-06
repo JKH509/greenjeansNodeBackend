@@ -52,10 +52,10 @@ const getAllServices = async (req, res) => {
 
 // Get Services By ID
 const getServiceById = async (req, res) => {
-  let id = req.params.service_id
+  let service_id = req.params.service_id
   let service = await Service.findOne({
     where: {
-      service_id: id
+      service_id: service_id
     }
   })
   res.status(200).send(service)
