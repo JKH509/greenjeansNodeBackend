@@ -22,13 +22,14 @@ app.use(express.urlencoded({ extended: true }))
 // routers
 const customerRouter = require('./src/routes/customerRoutes.js');
 const employeeRouter = require('./src/routes/employeeRoutes.js');
-
 const serviceRouter = require('./src/routes/serviceRoutes.js');
+const categoryRouter = require('./src/routes/categoryRoutes.js');
 
 const profileRouter = require('./src/routes/profileRoutes')();
 const loginRouter = require('./src/routes/loginRoutes')();
 const wikis = require('./src/routes/wiki')();
 
+app.use('/api', categoryRouter);
 app.use('/api', customerRouter);
 app.use('/api', employeeRouter);
 app.use('/api', serviceRouter);
@@ -44,6 +45,7 @@ app.use('/api', wikis);
 
 // app.use('/uploads', express.static('./uploads'))
 app.use('/uploads/services', express.static('./uploads/services'))
+app.use('/uploads/categories', express.static('./uploads/categories'))
 app.use('/uploads/customer_images/property_images', express.static('./uploads/customer_images/property_images'))
 app.use('/uploads/employee_images', express.static('./uploads/employee_images'))
 // app.use('/uploads', express.static('/uploads'))
@@ -52,6 +54,7 @@ app.use('/uploads/employee_images', express.static('./uploads/employee_images'))
 // app.use('/upload/employee_images', express.static('./upload/employee_images'))
 
 app.use(express.static(__dirname + '/uploads/customer_images/property_images'));
+app.use(express.static(__dirname + '/uploads/categories'));
 // app.use(express.static(__dirname + '/src/profiles'));
 // app.use(express.static(__dirname + './uploads/employee_images'));
 // app.use('/uploads', express.static('uploads'));

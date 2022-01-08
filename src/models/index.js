@@ -37,6 +37,7 @@ db.sequelize = sequelize
 db.Service_Data = require('../models/servicesModel/serviceModel.js')(sequelize, DataTypes)
 db.Customer_Data = require('../models/customersModel/customerModel.js')(sequelize, DataTypes)
 db.Employee_Data = require('../models/employeesModel/employeeModel.js')(sequelize, DataTypes)
+db.Category_Data = require('../models/servicesModel/categoryModel.js')(sequelize, DataTypes)
 // db.reviews = require('./reviewModel.js')(sequelize, DataTypes)
 
 // Using true will delete all previous data
