@@ -26,7 +26,8 @@ const serviceRouter = require('./src/routes/serviceRoutes.js');
 const categoryRouter = require('./src/routes/categoryRoutes.js');
 
 const profileRouter = require('./src/routes/profileRoutes')();
-const loginRouter = require('./src/routes/loginRoutes')();
+// const loginRouter = require('./src/routes/loginRoutes')();
+const loginRouter = require('./src/routes/userRoutes')();
 const wikis = require('./src/routes/wiki')();
 
 app.use('/api', categoryRouter);
@@ -56,16 +57,15 @@ app.use('/uploads/employee_images', express.static('./uploads/employee_images'))
 app.use(express.static(__dirname + '/uploads/customer_images/property_images'));
 app.use(express.static(__dirname + '/uploads/categories'));
 // app.use(express.static(__dirname + '/src/profiles'));
-// app.use(express.static(__dirname + './uploads/employee_images'));
-// app.use('/uploads', express.static('uploads'));
-// app.use('/upload/images', express.static('upload/images'))
+
 
 
 
 
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  // res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "https://greenjeans509.com"); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, PATCH');
   next();

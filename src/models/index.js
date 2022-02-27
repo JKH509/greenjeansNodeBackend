@@ -38,7 +38,31 @@ db.Service_Data = require('../models/servicesModel/serviceModel.js')(sequelize, 
 db.Customer_Data = require('../models/customersModel/customerModel.js')(sequelize, DataTypes)
 db.Employee_Data = require('../models/employeesModel/employeeModel.js')(sequelize, DataTypes)
 db.Category_Data = require('../models/servicesModel/categoryModel.js')(sequelize, DataTypes)
+db.User_Login_Data = require('../models/userLogin/userModel.js')(sequelize, DataTypes)
+
 // db.reviews = require('./reviewModel.js')(sequelize, DataTypes)
+
+
+// db.products.hasMany(db.reviews, {
+//   foreignKey: 'product_id',
+//   as: 'review'
+// })
+
+// db.Service_Data.belongsTo(db.Category_Data, {
+//   foreignKey: 'category_id',
+//   as: 'Service'
+// })
+
+// Service.belongsTo(Customer, { 
+//   constraints: true, 
+//   onDelete: 'CASCADE'
+//  });
+// Customer.hasMany(Service);
+
+// Customer.hasOne(Invoice);
+// Invoice.belongsTo(Customer);
+// Invoice.belongsToMany(Service, { through: InvoiceItem });
+// Service.belongsToMany(Invoice, { through: InvoiceItem });
 
 // Using true will delete all previous data
 db.sequelize.sync({ force: false })

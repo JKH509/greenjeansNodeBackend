@@ -21,8 +21,9 @@ const addCategory = async (req, res) => {
     res.status(200).send(category)
     console.log(category)
   } 
-  catch (e) {
-    console.log(e);
+  catch (err) {
+    console.log(err);
+    // res.send(err).status()
   }
 };
 
