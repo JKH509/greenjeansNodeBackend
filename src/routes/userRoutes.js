@@ -10,6 +10,7 @@ function router() {
   
   userRouter.route('/users',validateToken).get(getAllUsers);
   userRouter.route('/register').post(addUsers);
+  // userRouter.route('/login',validateToken).post(login);
   userRouter.route('/login').post(login);
 
   // userRouter.route('/login',validatToken).post(login);

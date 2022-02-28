@@ -9,7 +9,7 @@ router.post('/category/add-category', categoryController.upload, categoryControl
 router.get('/categories/list', categoryController.getAllCategories)
 // By ID's
 router.get('/category/:category_id', categoryController.getCategoryById)
-router.put('/category/:category_id', categoryController.updateCategory)
+router.put('/category/edit/:category_id', categoryController.updateCategory)
 router.delete('/category/delete/:category_id', categoryController.deleteCategory)
 // Not yet used
 // router.get('/category/pulished', categoryController.getPublishedCategory)

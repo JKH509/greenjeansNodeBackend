@@ -43,8 +43,8 @@ const addCustomer = async (req, res) => {
     const customer = await Customer.create(info)
     res.status(200).send(customer)
     console.log(customer)
-  } catch {
-    
+  } catch (err) {
+    console.log(err)
   }
 };
 
@@ -59,8 +59,8 @@ const getCustomerById = async (req, res) => {
   })
   res.status(200).send(customer)
   }
-  catch {
-
+  catch (err) {
+    console.log(err)
   }
 }
 

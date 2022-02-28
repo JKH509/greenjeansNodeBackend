@@ -11,14 +11,14 @@ const loginController = (req, res) => {
     try {
       let services = await Users.findAll({})
       res.status(200).send(services)
-    } catch {
-  
+    } catch (err) {
+  console.log(err)
     }
   };
 
   const addUsers = async (req, res) => {
-    const { userName, userEmail, userPassword } = req.body;
-    // let data = {firstNum, operator, secondNum} = req.body;
+    try {
+      const { userName, userEmail, userPassword } = req.body;
     // insert data into table
 
     bcrypt.hash(userPassword, 10).then((hash) => {
@@ -29,10 +29,14 @@ const loginController = (req, res) => {
       });
       res.json("SUCCESS");
     });
+    } catch (error) {
+      console.log(error)
+    }
   };
 
 const login = async (req, res) => { 
-  const { userName, userEmail, userPassword } = req.body;
+  try {
+    const { userName, userEmail, userPassword } = req.body;
   const user = await Users.findOne({ where: { user_name: userName } });
 
   if (!user) res.json({ error: "User Doesn't Exist" });
@@ -46,6 +50,9 @@ const login = async (req, res) => {
       );
     res.json({token: accessToken, userName: user.user_name, id: user.id});
   });
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 

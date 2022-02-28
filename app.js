@@ -1,32 +1,29 @@
 const express = require('express');
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 5001;
-// const db = require("./config/dbConfig.js");
-// const db = require('./models')
-
-const multer = require('multer')
-
+// const PORT = process.env.PORT || 5001;
+const PORT =  5001;
 
 app.use(cors())
-
-// middleware
-// var corOptions = {
-//   origin: "http://localhost:3000"
-// }
-// app.use(cors(corOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use(function(req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, PATCH');
+  next();
+});
 
 // routers
 const customerRouter = require('./src/routes/customerRoutes.js');
 const employeeRouter = require('./src/routes/employeeRoutes.js');
 const serviceRouter = require('./src/routes/serviceRoutes.js');
 const categoryRouter = require('./src/routes/categoryRoutes.js');
+// const userRouter = require('./src/routes/userRoutes.js');
 
 const profileRouter = require('./src/routes/profileRoutes')();
-// const loginRouter = require('./src/routes/loginRoutes')();
 const loginRouter = require('./src/routes/userRoutes')();
 const wikis = require('./src/routes/wiki')();
 
@@ -41,8 +38,6 @@ app.use('/api', wikis);
 
 //static Images Folder
 // app.use('/upload/images', express.static('./upload/images'))
-
-
 
 // app.use('/uploads', express.static('./uploads'))
 app.use('/uploads/services', express.static('./uploads/services'))
@@ -59,23 +54,8 @@ app.use(express.static(__dirname + '/uploads/categories'));
 // app.use(express.static(__dirname + '/src/profiles'));
 
 
-
-
-
-
-app.use(function(req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Origin", "https://greenjeans509.com"); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, PATCH');
-  next();
-});
-
-
 // db.sequelize.sync().then(() => { 
-
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 })
-
 // });
