@@ -15,11 +15,13 @@ const addService = async (req, res) => {
       service_price: req.body.service_price,
       service_warranty: req.body.service_warranty,
       warranty_description: req.body.warranty_description,
-      service_season_spring: req.body.service_season_spring,
-      service_season_summer: req.body.service_season_summer,
-      service_season_fall: req.body.service_season_fall,
-      service_season_winter: req.body.service_season_winter,
-      service_image: req.file.path
+
+      // service_season_spring: req.body.service_season_spring,
+      // service_season_summer: req.body.service_season_summer,
+      // service_season_fall: req.body.service_season_fall,
+      // service_season_winter: req.body.service_season_winter,
+      service_image: req.file.path,
+      category_id: req.body.category_id
     }
     // files is for more than 1 image
     // service_image: req.files.path

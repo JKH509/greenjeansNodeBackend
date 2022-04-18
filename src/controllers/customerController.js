@@ -16,33 +16,33 @@ const getAllCustomers = async (req, res) => {
   // Create
 const addCustomer = async (req, res) => {
   try {
-    let info = {
+    let data = {
       uuid: req.body.uuid,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       mobile_phone: req.body.mobile_phone,
-      preferred_priority: req.body.preferred_priority,
+      // preferred_priority: req.body.preferred_priority,
       street_address: req.body.street_address,
       address_two: req.body.address_two,
       city: req.body.city,
       state: req.body.state,
       postal_code: req.body.postal_code,
       country: req.body.country,
-      street_billing_address: req.body.street_billing_address,
-      street_billing_address_two: req.body.street_billing_address_two,
-      billing_city: req.body.billing_city,
-      billing_state: req.body.billing_state,
-      billing_postal_code: req.body.billing_postal_code,
-      distance_fo: req.body.distance_fo,
-      notes: req.body.notes,
+      // street_billing_address: req.body.street_billing_address,
+      // street_billing_address_two: req.body.street_billing_address_two,
+      // billing_city: req.body.billing_city,
+      // billing_state: req.body.billing_state,
+      // billing_postal_code: req.body.billing_postal_code,
+      // distance_fo: req.body.distance_fo,
+      // notes: req.body.notes,
       property_image: req.file.path,
       preferred_payment_method: req.body.preferred_payment_method
     }
-    const customer = await Customer.create(info)
+    const customer = await Customer.create(data)
     res.status(200).send(customer)
-    console.log(customer)
+    // console.log(customer)
   } catch (err) {
     console.log(err)
   }

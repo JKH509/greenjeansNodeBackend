@@ -28,22 +28,26 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    service_season_spring: {
+    service_path: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    service_season_summer: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    service_season_fall: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    service_season_winter: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
+    // service_season_spring: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // service_season_summer: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // service_season_fall: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // service_season_winter: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
     service_image: {
       type: DataTypes.STRING,
       allowNull: true

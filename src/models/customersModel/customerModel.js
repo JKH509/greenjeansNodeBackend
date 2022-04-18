@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
+
   const Customer = sequelize.define("Customer_Data", {
     customer_id: {
       type: DataTypes.INTEGER,
@@ -31,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    preferred_priority: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     street_address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -57,11 +54,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 'USA'
     },
     street_billing_address: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     street_billing_address_two: {
       type: DataTypes.STRING,
@@ -69,32 +67,34 @@ module.exports = (sequelize, DataTypes) => {
     },
     billing_city: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     billing_state: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     billing_postal_code: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    distance_fo: {
+    billing_country: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     notes: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    property_image: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     preferred_payment_method: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
+  },
+  {
+    timestamps: true,
+    fields: ['customer_id'],
+    // unique: true,
+    paranoid: true,
   })
 
   return Customer

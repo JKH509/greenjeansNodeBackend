@@ -50,20 +50,20 @@ app.use(function(req, res, next) {
 
 // routers
 const customerRouter = require('./src/routes/customerRoutes.js');
+const workOrderRouter = require('./src/routes/workOrderRoutes.js');
+const invoiceRouter = require('./src/routes/invoiceRoutes');
 const employeeRouter = require('./src/routes/employeeRoutes.js');
 const serviceRouter = require('./src/routes/serviceRoutes.js');
 const categoryRouter = require('./src/routes/categoryRoutes.js');
-// const userRouter = require('./src/routes/userRoutes.js');
 
 const profileRouter = require('./src/routes/profileRoutes')();
 const loginRouter = require('./src/routes/userRoutes')();
 const aboutPageRouter = require('./src/routes/aboutRoutes')();
 
-
-// const wikis = require('./src/routes/wiki')();
-
 app.use('/api', categoryRouter);
 app.use('/api', customerRouter);
+app.use('/api', workOrderRouter);
+app.use('/api', invoiceRouter);
 app.use('/api', employeeRouter);
 app.use('/api', serviceRouter);
 app.use('/api', profileRouter);
